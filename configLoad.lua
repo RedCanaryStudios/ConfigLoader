@@ -54,7 +54,7 @@ configLoader.LoadConfig = function(conf)
     configLoader.Cache[conf] = conf
     
 
-    local configFolder = setmetatable(configLoader, {
+    local configFolder = setmetatable({}, {
         __index = function(t, k)
             
             if contents.Subfolders[k] then
