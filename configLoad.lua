@@ -28,7 +28,7 @@ configLoader.Cache = {}
 configLoader.LoadConfig = function(conf)
     assert(type(conf) == "userdata", "The given parameter is not an instance.")
     assert(conf:IsA("Configuration"), "The given parameter is not a configuration object.")
-    assert(not configLoader[conf], "The given config folder has already been loaded!")
+    assert(not configLoader.Cache[conf], "The given config folder has already been loaded!")
     
     local contents = {
         ["Values"] = {};
