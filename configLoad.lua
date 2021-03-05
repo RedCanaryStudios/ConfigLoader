@@ -42,10 +42,8 @@ configLoader.LoadConfig = function(conf)
             assert(obj, "Attempted to index invalid member.")
 
             if obj:IsA("Folder") then
-                
-                local Folder = {main = obj}
-
-                return setmetatable(Folder, mt)
+               
+                return setmetatable({main = obj}, mt)
 
             elseif obj:IsA("ValueBase") then
 
