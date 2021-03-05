@@ -32,8 +32,6 @@ configLoader.LoadConfig = function(conf)
     
     configLoader.Cache[conf] = conf
     
-    local main = conf
-    
     local mt
     
     mt = {
@@ -80,7 +78,7 @@ configLoader.LoadConfig = function(conf)
         end;
     }
 
-    local configFolder = setmetatable({main = main}, mt)
+    local configFolder = setmetatable({main = conf}, mt)
     
     return configFolder
   
