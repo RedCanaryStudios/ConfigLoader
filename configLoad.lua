@@ -6,9 +6,9 @@ _G.Instructions = [[
 
     Usage:
         
-        Load config and turn them into easily editable tables.
+        Config Loader will load configuration files into tables you can edit.
         
-        configLoader.LoadConfig(fileLocation)
+        local t = configLoader.LoadConfig(fileLocation)
         
     Notes:
     
@@ -16,6 +16,11 @@ _G.Instructions = [[
         Subfolders can go inside other subfolders.
         Config folders should only contain ValueBase (BoolValue, Vector3Value, etc.) objects.
         Any other objects will be ignored.
+
+        Folders and subfolders have a ._FOLDER property. This will be a pointer to the actual folder you're refrencing.
+
+        EG: t.subfolder._FOLDER
+            t._FOLDER
 
 ]]
 
@@ -37,13 +42,13 @@ configLoader.LoadConfig = function(conf)
     mt = {
         __index = function(t, k)
             
-            local obj = rawget(t, "main")[k]
+            local obj = rawget(t, "_FOLDER")[k]
             
             assert(obj, "Attempted to index invalid member.")
 
             if obj:IsA("Folder") then
                
-                return setmetatable({main = obj}, mt)
+                return setmetatable({_FOLDER = obj}, mt)
 
             elseif obj:IsA("ValueBase") then
 
@@ -56,7 +61,7 @@ configLoader.LoadConfig = function(conf)
 
         __newindex = function(t, k, v)
             
-            local obj = rawget(t, "main")[k]
+            local obj = rawget(t, "_FOLDER")[k]
             
             
             if obj:IsA("Folder") then
@@ -76,7 +81,7 @@ configLoader.LoadConfig = function(conf)
         end;
     }
 
-    local configFolder = setmetatable({main = conf}, mt)
+    local configFolder = setmetatable({_FOLDER = conf}, mt)
     
     return configFolder
   
