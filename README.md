@@ -8,6 +8,10 @@ Instructions
         
         local t = configLoader.LoadConfig(fileLocation)
         
+        t.Index = 5
+        
+        t.Index2.Index = "yo"
+        
     Notes:
     
         There may be subfolders inside the configuration.
